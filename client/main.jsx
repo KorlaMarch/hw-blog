@@ -1,22 +1,56 @@
 import { Meteor } from 'meteor/meteor';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { FlowRouter }  from 'meteor/kadira:flow-router';
 
 import './main.html';
+import BlogCreate from '../imports/views/BlogCreate.jsx';
+import BlogList from  '../imports/views/BlogList.jsx';
+
+const posts = [
+  {
+    id:1,
+    head:"Hello",
+    massage:"WorldWorldWorldWorld"
+  },
+  {
+    id:2,
+    head:"Test2",
+    massage:"gyr6465edgdgfdgfdjdgdfgdgfd"
+  },
+  {
+    id:3,
+    head:"Test 3",
+    massage:"hhv rfew e re   rwf tv ctgbyh "
+  }
+];
 
 FlowRouter.route('/', {
-  name: 'first',
+  name: 'Blog.List',
   action(params, queryParams) {
-    console.log("first");
+    const root = document.getElementById('root');
+    if(root){
+      ReactDOM.render(<BlogList posts={posts} />, root);
+    }
   }
-})
+});
 
-FlowRouter.route('/second/:_test', {
-  name: 'second',
+FlowRouter.route('/new/', {
+  name: 'Blog.Create',
   action(params, queryParams) {
-    console.log("second");
+    const root = document.getElementById('root');
+    if(root){
+      ReactDOM.render(<BlogCreate />, root);
+    }
   }
 });
 
 Meteor.startup(() => {
-  console.log("test");
+  const routeName = FlowRouter.getRouteName();
+
+  if(routeName=='Blog.List'){
+    ReactDOM.render(<BlogList posts={posts}/>, document.getElementById('root'));
+  }else {
+    ReactDOM.render(<BlogCreate />, document.getElementById('root'));
+  }
 });
