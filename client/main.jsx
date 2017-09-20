@@ -7,30 +7,12 @@ import './main.html';
 import BlogCreate from '../imports/views/BlogCreate.jsx';
 import BlogList from  '../imports/views/BlogList.jsx';
 
-const posts = [
-  {
-    id:1,
-    head:"Hello",
-    massage:"WorldWorldWorldWorld"
-  },
-  {
-    id:2,
-    head:"Test2",
-    massage:"gyr6465edgdgfdgfdjdgdfgdgfd"
-  },
-  {
-    id:3,
-    head:"Test 3",
-    massage:"hhv rfew e re   rwf tv ctgbyh "
-  }
-];
-
 FlowRouter.route('/', {
   name: 'Blog.List',
   action(params, queryParams) {
     const root = document.getElementById('root');
     if(root){
-      ReactDOM.render(<BlogList posts={posts} />, root);
+      ReactDOM.render(<BlogList />, root);
     }
   }
 });
@@ -38,10 +20,10 @@ FlowRouter.route('/', {
 FlowRouter.route('/new/', {
   name: 'Blog.Create',
   action(params, queryParams) {
-    const root = document.getElementById('root');
-    if(root){
+    //const root = document.getElementById('root');
+    //if(root){
       ReactDOM.render(<BlogCreate />, root);
-    }
+    //}
   }
 });
 
@@ -49,7 +31,7 @@ Meteor.startup(() => {
   const routeName = FlowRouter.getRouteName();
 
   if(routeName=='Blog.List'){
-    ReactDOM.render(<BlogList posts={posts}/>, document.getElementById('root'));
+    ReactDOM.render(<BlogList />, document.getElementById('root'));
   }else {
     ReactDOM.render(<BlogCreate />, document.getElementById('root'));
   }

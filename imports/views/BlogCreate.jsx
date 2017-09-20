@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Posts } from '../api/posts.js'
+
 export default class App extends React.Component {
 
   constructor(props){
@@ -22,7 +24,7 @@ export default class App extends React.Component {
   }
 
   handleSubmit(event){
-    console.log(this.state.head + " " + this.state.content);
+    Posts.insert({ head : this.state.head, content : this.state.content});
     event.preventDefault();
   }
 

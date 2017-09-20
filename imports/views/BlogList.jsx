@@ -1,15 +1,17 @@
 import React from 'react';
+import { createContainer } from 'meteor/react-meteor-data';
 
-export default class App extends React.Component {
+import { Posts } from '../api/posts.js'
+
+class BlogList extends React.Component {
   render(){
-    list = this.props.posts.map((element) => {
-      return (
-        <article key={element.id}>
+    console.log(this.props.posts);
+    list = this.props.posts.map((element,ind) => (
+        <article key={element._id}>
           <h3>{element.head}</h3>
-          <p>{element.massage}</p>
+          <p>{element.content}</p>
         </article>
-      );
-    });
+    ));
 
     return (
       <main>
@@ -19,5 +21,10 @@ export default class App extends React.Component {
       </main>
     );
   }
-
 }
+
+export default createContainer( () => {
+  return{
+    posts: Posts.find({}).fetch()
+  };
+}, BlogList);
