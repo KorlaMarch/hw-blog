@@ -1,3 +1,4 @@
+import { Meteor } from 'meteor/meteor'
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
 
@@ -8,7 +9,7 @@ class BlogList extends React.Component {
     console.log(this.props.posts);
     list = this.props.posts.map((element,ind) => (
         <article key={element._id}>
-          <h3>{element.head}</h3>
+          <a href={"/post/"+element._id} ><h3>{element.head}</h3></a>
           <p>{element.content}</p>
         </article>
     ));
@@ -24,6 +25,8 @@ class BlogList extends React.Component {
 }
 
 export default createContainer( () => {
+  Meteor.subscribe('posts');
+
   return{
     posts: Posts.find({}).fetch()
   };

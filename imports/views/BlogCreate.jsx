@@ -1,8 +1,7 @@
+import { Meteor } from "meteor/meteor";
 import React from 'react';
 
-import { Posts } from '../api/posts.js'
-
-export default class App extends React.Component {
+export default class BlogCreate extends React.Component {
 
   constructor(props){
     super(props);
@@ -24,7 +23,7 @@ export default class App extends React.Component {
   }
 
   handleSubmit(event){
-    Posts.insert({ head : this.state.head, content : this.state.content});
+    Meteor.call('posts.insert', this.state.head, this.state.content);
     event.preventDefault();
   }
 
