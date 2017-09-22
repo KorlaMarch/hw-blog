@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import React from 'react';
-import { createContainer } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { Posts } from '../api/posts.js';
 
@@ -11,18 +11,22 @@ class BlogPost extends React.Component {
     return (
       <div>
         <a href="/">Back</a> <br/>
-        <h1>{this.props.post.head}</h1>
-        <p>{this.props.post.content}</p>
+        { this.props.post &&
+          <main>
+            <h1>{this.props.post.head}</h1>
+            <p>{this.props.post.content}</p>
+          </main>
+        }
       </div>
     );
   }
 }
 
-export default createContainer( ({ id }) => {
+export default withTracker( ({ id }) => {
   console.log("Create Con " + id);
-  Meteor.subscribe('posts');
+  Meteor.subscribe('posts', id);
 
   return{
-    post: Posts.find({_id : id}).fetch()
+    post: Posts.findOne({_id : id})
   };
-}, BlogPost);
+})(BlogPost);

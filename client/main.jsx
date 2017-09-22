@@ -31,10 +31,9 @@ FlowRouter.route('/new/', {
 FlowRouter.route('/post/:_postid', {
   name: 'Blog.Post',
   action(params){
-    console.log(params);
     const root = document.getElementById('root');
     if(root){
-      ReactDOM.render(<BlogPost id={params.postid} />, root);
+      ReactDOM.render(<BlogPost id={params._postid} />, root);
     }
   }
 });
@@ -47,6 +46,6 @@ Meteor.startup( () => {
   }else if(routeName=='Blog.Create'){
     ReactDOM.render(<BlogCreate />, root);
   }else if(routeName=='Blog.Post'){
-    ReactDOM.render(<BlogPost id={FlowRouter.getParam('postid')} />, root);
+    ReactDOM.render(<BlogPost id={FlowRouter.getParam('_postid')} />, root);
   }
 });
